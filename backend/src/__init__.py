@@ -30,6 +30,6 @@ async def generate_meme(file: UploadFile, topic: str = Body()):
     predictions = classify(model, img)
     emotion = predictions[0][0]
     meme = generate_text_meme(emotion, topic)
-    meme_img = combine_image_text(img, meme)
+    meme_img = np.array(combine_image_text(img_org, meme))
     video_file_name = combine_image_audio(meme_img, emotion)
     return {"meme": meme, "video": f"/static/{video_file_name}"}
